@@ -1,0 +1,80 @@
+
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { getServiceClient } from '../../services/servise'
+import Header from '../Home/Header'
+import Sidebar from '../Home/sidebar'
+const ServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
+
+
+
+
+    const [ServiceClients, setServiceClients] = useState([])
+
+    useEffect(() => {
+        let mount = true
+        getServiceClient().then(res => {
+            console.log("res from api", res)
+            setServiceClients(res)
+            return () => mount = false
+        })
+    }, []);
+    const handleDelete = async (id) => {
+        try {
+          await axios.delete(`http://localhost:8000/api/${id}/delete_serviceClient/`);
+          window.location.reload()
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+    return (
+        <div className='grid-container'>
+            <Header OpenSidebar={OpenSidebar} />
+            <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
+
+            <main className='main-container'>
+                <div className="contenu">
+
+                    <div className='containerT'>
+                        <h2 className='text-center'>Liste  des Interactions</h2>
+                        <table className='table table-bordered table-striped'>
+                            <thead>
+                                <tr>
+                                    <th>Date de demande</th>
+                                    <th>Probleme signalé</th>
+                                    <th>Client</th>
+                                    <th> Gestionnaire</th>
+                                    <th> Statut</th>
+                                    <th>Action</th>
+                                  
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {ServiceClients?.map(item => {
+                                    return (<tr key={item.id}>
+                                        <td >{item.date_demande}</td>
+                                        <td> {item.problemeSignale}</td>
+                                        <td> {item.client}</td>
+                                        <td> {item.gestionnaire}</td>
+                                        <td> {item.statut}</td>
+                                        <td>
+                                            <a href="#editEmployeeModal-{{forloop.counter}}" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
+                                            <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button></tr>)
+                                }
+                                )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </main >
+        </div >
+
+
+    )
+}
+
+export default ServiceClient
