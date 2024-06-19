@@ -2,8 +2,8 @@ from django.urls import path
 from cms import *
 from cms import views
 from django.urls import path, include
-
-
+from django.conf.urls.static import static
+from django.conf import settings
 from .views import *
 
 from rest_framework import routers
@@ -39,7 +39,16 @@ urlpatterns = [
     path('add_serviceClient/',views.CreateServiceClientView.as_view(), name='create_serviceClient'),
     path('<pk>/update_serviceClient/',views.UpdateServiceClientView.as_view(), name='serviceClient_update'),
     path('<pk>/delete_serviceClient/',views.DeleteServiceClientView.as_view(), name='serviceClient_delete'),  
-      
- 
-
-]
+    path('api/statut-choices/', views.StatutChoicesAPIView.as_view(), name='statut_choices'),
+    path('api/choices/', views.StatutAPIView.as_view(), name='choices'),
+    path('venteList/',views.ListVenteView.as_view(), name='vente'),
+    path('add_vente/',views.CreateVenteView.as_view(), name='create_vente'),
+    path('<pk>/update_vente/',views.UpdateVenteView.as_view(), name='vente_update'),
+    path('<pk>/delete_vente/',views.DeleteVenteView.as_view(), name='vente_delete'), 
+    path('commande/count/', CommandeCountView.as_view(), name='commande-count'),
+    path('vente/count/', VenteCountView.as_view(), name='vente-count'),
+    path('campagne/count/', CampagneCountView.as_view(), name='campagne-count'),
+    path('service/count/', ServiceClientCountView.as_view(), name='commande-count'),
+    path('produit/count/', ProduitCountView.as_view(), name='produit-count'),
+     path('client/count/', ClientCountView.as_view(), name='client-count'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
