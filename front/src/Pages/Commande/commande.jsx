@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { getCommande } from '../../services/servise'
 import Header from '../Home/Header'
+import { Link } from 'react-router-dom';
 import Sidebar from '../Home/sidebar'
 const Commande = ({ openSidebarToggle, OpenSidebar }) => {
 
@@ -36,7 +37,9 @@ const Commande = ({ openSidebarToggle, OpenSidebar }) => {
 
             <main className='main-container'>
                 <div className="contenu">
-
+                <Link to="/addcommande"  className="btn btn-success">
+        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+        </Link>
                     <div className='containerT'>
                         <h2 className='text-center'>Liste  des Commandes</h2>
                         <table className='table table-bordered table-striped'>

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { getProduit } from '../../services/servise'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
+import { Link } from 'react-router-dom';
 const Produit = ({ openSidebarToggle, OpenSidebar }) => {
 
 
 
-  
+
     const [Produits, setProduits] = useState([])
 
     useEffect(() => {
@@ -21,12 +22,12 @@ const Produit = ({ openSidebarToggle, OpenSidebar }) => {
     }, []);
     const handleDelete = async (id) => {
         try {
-          await axios.delete(`http://localhost:8000/api/${id}/delete_produit/`);
-          window.location.reload()
+            await axios.delete(`http://localhost:8000/api/${id}/delete_produit/`);
+            window.location.reload()
         } catch (err) {
-          console.log(err);
+            console.log(err);
         }
-      };
+    };
 
     return (
         <div className='grid-container'>
@@ -35,7 +36,9 @@ const Produit = ({ openSidebarToggle, OpenSidebar }) => {
 
             <main className='main-container'>
                 <div className="contenu">
-
+                    <Link to="/addproduit" className="btn btn-success">
+                        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+                    </Link>
                     <div className='containerT'>
                         <h2 className='text-center'>Liste  des Produits</h2>
                         <table className='table table-bordered table-striped'>
@@ -59,7 +62,9 @@ const Produit = ({ openSidebarToggle, OpenSidebar }) => {
                                         <td>{item.nom_category}</td>
                                         <td>
                                             <a href="#editEmployeeModal-{{forloop.counter}}" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
-                                            <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button> </tr>)
+                                        <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button>
+                                        <button className="delete" ><Link to={`/modifproduit/${item.id}`}>Modif</Link></button> </tr>
+                                    )
                                 }
                                 )
                                 }

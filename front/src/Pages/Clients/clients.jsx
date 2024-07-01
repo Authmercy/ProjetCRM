@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { getClient } from '../../services/servise'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
+import { Link } from 'react-router-dom';
 const Client = ({ openSidebarToggle, OpenSidebar }) => {
 
    
@@ -34,7 +35,11 @@ const Client = ({ openSidebarToggle, OpenSidebar }) => {
             <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
 
             <main className='main-container'>
+
                 <div className="contenu">
+                <Link to="/addclient"  className="btn btn-success">
+        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+        </Link>
 
                     <div className='containerT'>
                         <h2 className='text-center'>Liste Clients</h2>
@@ -60,7 +65,9 @@ const Client = ({ openSidebarToggle, OpenSidebar }) => {
                                         <td>{client.address}</td>
                                         <td>
     <a href="#editEmployeeModal-{{forloop.counter}}" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
-    <button className="delete" onClick={() => handleDelete(client.id)}>Delete</button>   </tr>)
+    <button className="delete" onClick={() => handleDelete(client.id)}>Delete</button> 
+    <button className="delete" ><Link to={`/modifclient/${client.id}`}>Modif</Link></button>
+    </tr>)
                                 }
                                 )
                                 }

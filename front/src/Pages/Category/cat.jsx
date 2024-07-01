@@ -2,12 +2,14 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { getCategory } from '../../services/servise'
 import Header from '../Home/Header'
+import { Link, useNavigate } from "react-router-dom";
+
 import Sidebar from '../Home/sidebar'
 const Category = ({ openSidebarToggle, OpenSidebar }) => {
 
 
 
-
+  
     const [Categorys, setCategorys] = useState([])
 
     useEffect(() => {
@@ -55,6 +57,7 @@ const Category = ({ openSidebarToggle, OpenSidebar }) => {
                                         <td>
                                             <a href="#editEmployeeModal-{{forloop.counter}}" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
                                             <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button>
+                                            <button className="delete" ><Link to={`/modifcat/${item.id}`}>Modif</Link></button>
                                               </tr>)
                                 }
                                 )

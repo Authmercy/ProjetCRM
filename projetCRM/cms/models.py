@@ -5,8 +5,8 @@ from datetime import date
 class CampagneMarketing(models.Model):
     nomCampagne = models.CharField(max_length=50)
     objectif = models.TextField(max_length=100)
-    date_debut = models.DateField()
-    date_fin = models.DateField()
+    date_debut = models.DateField(default=date.today())
+    date_fin = models.DateField(default=date.today())
     document =models.FileField(upload_to='documents/',default='/media/document.pdf')
     media =models.ImageField(upload_to='images/',default='/media/img.jpeg')
     video= models.FileField(upload_to='videos/',default='/media/video.mp3')
@@ -49,9 +49,10 @@ class Gestionnaire(models.Model):
     email = models.CharField(max_length=50)
     telephone = models.CharField(max_length = 30, default = '+237678963685')
     address = models.CharField(max_length = 30, )
- 
     def __str__(self):
         return self.nom
+    
+    
 class Produit(models.Model):
     nomProduit = models.CharField(max_length=50)
     description = models.TextField(max_length=100)
@@ -76,7 +77,7 @@ statut=[
 # Create your models here.
 class ServiceClient(models.Model):
     
-    date_demande = models.DateField()
+    date_demande = models.DateField(default= date.today())
     problemeSignale = models.TextField(max_length=50)
     statut= models.CharField(max_length = 30,default='Nouveau', choices=statut )
     client = models.ForeignKey(ClientProspect,on_delete=models.CASCADE,null=False)
@@ -99,7 +100,7 @@ statutCommande=[
 ]
 class Commande(models.Model):
     
-    date_fin = models.DateField()
+    date_fin = models.DateField(default=date.today())
     quantite = models.IntegerField()
     statut= models.CharField(max_length = 30,default='Nouveau', choices=statutCommande )
     client= models.ForeignKey(ClientProspect,on_delete=models.CASCADE,null=False)
@@ -134,7 +135,7 @@ class Commande(models.Model):
     
 class Vente(models.Model):
    
-    date_vente = models.DateField()
+    date_vente = models.DateField(default=date.today())
     idCommande= models.ForeignKey(Commande,on_delete=models.CASCADE,null=False)
     client= models.ForeignKey(ClientProspect,on_delete=models.CASCADE,null=False)
     produit = models.ManyToManyField(Produit)
@@ -153,7 +154,6 @@ class Vente(models.Model):
 
     def qte_produit(self):
         return sum(produit.quantite for produit in self.produit.all())
-
     def total(self):
         return sum(produit.prix * produit.quantite for produit in self.produit.all())
 

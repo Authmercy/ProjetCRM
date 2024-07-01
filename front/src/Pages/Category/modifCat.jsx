@@ -2,17 +2,21 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const AddCategory = ({ openSidebarToggle, OpenSidebar }) => {
+const UpdateCategory = ({ openSidebarToggle, OpenSidebar }) => {
     const [description, setDescription] = useState("");
     const [nomCategory, setNomCategory] = useState("");
     const navigate = useNavigate();
+    const [error, setError] = useState(false)
+    const location = useLocation();
+    const catId = location.pathname.split("/")[2];
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("http://127.0.0.1:8000/api/add_category/", {
+            await axios.put(`http://127.0.0.1:8000/api/${catId}/update_category/`, {
                 nomCategory,
                 description,
 
@@ -20,7 +24,8 @@ const AddCategory = ({ openSidebarToggle, OpenSidebar }) => {
             navigate("/cat");
             alert("Categorie ajouté avec success");
         } catch (error) {
-            console.error(error);
+            console.log(error);
+            setError(true);
         }
     };
 
@@ -38,12 +43,12 @@ const AddCategory = ({ openSidebarToggle, OpenSidebar }) => {
 
 
                     <div className='containerD'>
-                        <header>Ajouter une Categorie</header>
+                        <header>Modifier une Categorie</header>
                         <div className='card-body'>
                             <form onSubmit={handleSubmit}>
                                 <div className='form'>
                                     <div className='details'>
-                                        <span className='title'>Ajouter une Categorie</span>
+                                        <span className='title'>Modifier une Categorie</span>
                                     </div>
 
                                     <div className='fields'>
@@ -73,4 +78,4 @@ const AddCategory = ({ openSidebarToggle, OpenSidebar }) => {
     );
 }
 
-export default AddCategory
+export default UpdateCategory

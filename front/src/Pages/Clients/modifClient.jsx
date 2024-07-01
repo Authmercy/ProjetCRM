@@ -4,7 +4,7 @@ import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
+const UpdateClient = ({ openSidebarToggle, OpenSidebar }) => {
 
    
     const [email, setEmail] = useState("");
@@ -12,23 +12,27 @@ const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
     const [prenom, setPrenom] = useState("");
     const [telephone, setTelephone] = useState("");
     const [address, setAddress] = useState("");
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
+    const location = useLocation();
+    const clientid = location.pathname.split("/")[2];
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("http://127.0.0.1:8000/api/add_gestionnaire/", {
+            await axios.put(`http://127.0.0.1:8000/api/${clientid}/update_client/`, {
                 nom,
                 prenom,
                 email,
                 telephone,
                 address,
-            });navigate("/ges");
-            alert("Gestionnaire ajouté avec success");
+            });navigate("/client");
+            alert("Client modifié avec success");
         } catch (error) {
             console.error(error);
         }
     };
+
 
    
 
@@ -43,21 +47,21 @@ const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
 
                     
                 <div className='containerD'>
-                        <header>Ajouter un Gestionnaire</header>
+                        <header>Modifier le  Client</header>
                         <div className='card-body'>
                             <form onSubmit={handleSubmit}>
                                 <div className='form'>
                                     <div className='details'>
-                                        <span className='title'>Ajouter un Gestionnaire</span>
+                                        <span className='title'>Modifier le client</span>
                                     </div>
 
                                     <div className='fields'>
                                         <div className='input-field'>
-                                            <label htmlFor='nomclient'>Nom </label>
+                                            <label htmlFor='nomclient'>Nom client</label>
                                             <input type='text' id='nom' value={nom} onChange={(event) => setNom(event.target.value)} required />
                                         </div>
                                         <div className='input-field'>
-                                            <label htmlFor='nomclient'>Prenom </label>
+                                            <label htmlFor='nomclient'>Prenom client</label>
                                             <input type='text' id='nom' value={prenom} onChange={(event) => setPrenom(event.target.value)} required />
                                         </div>
                                         <div className='input-field'>
@@ -75,7 +79,7 @@ const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
 
                                     </div>
                                     <div className='submit'>
-                                        <button type='submit'>Enregistrer le Gestionnaire</button>
+                                        <button type='submit'>Enregistrer le client</button>
                                     </div>
                                 </div>
                             </form>
@@ -89,4 +93,4 @@ const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
     );
 }
 
-export default AddGestionnaire
+export default UpdateClient

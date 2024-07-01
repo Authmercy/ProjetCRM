@@ -5,18 +5,20 @@ import Sidebar from '../Home/sidebar'
 import { getCategory } from '../../services/servise'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const AddProduit = ({ openSidebarToggle, OpenSidebar }) => {
- const [description, setDescription] = useState("");
+const UpdateProduit = ({ openSidebarToggle, OpenSidebar }) => {
+    const [description, setDescription] = useState("");
     const [nomProduit, setNomProduit] = useState("");
     const [quantite, setQuantite] = useState("");
     const [prix, setPrix] = useState("");
     const [category, setCategory] = useState("");
     const navigate = useNavigate();
+    const location = useLocation();
+    const prodID = location.pathname.split("/")[2];
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("http://127.0.0.1:8000/api/add_produit/", {
+            await axios.put(`http://127.0.0.1:8000/api/${prodID}/update_produit/`, {
                 nomProduit,
                 description,
                 quantite,
@@ -24,7 +26,7 @@ const AddProduit = ({ openSidebarToggle, OpenSidebar }) => {
                 category,
             });
             navigate("/produit");
-            alert("Produit ajouté avec success");
+            alert("Produit modifié avec success");
         } catch (error) {
             console.error(error);
         }
@@ -41,7 +43,7 @@ const AddProduit = ({ openSidebarToggle, OpenSidebar }) => {
         })
     }, []);
 
-   
+
 
 
     return (
@@ -52,13 +54,15 @@ const AddProduit = ({ openSidebarToggle, OpenSidebar }) => {
             <main className='main-container'>
                 <div className="contenu">
 
-                    
-                <div className='containerD'>
-                        <header>Ajouter un Produit</header>
+
+                    <div className='containerD'>
+                        <header>Modifier un Produit</header>
                         <div className='card-body'>
                             <form onSubmit={handleSubmit}>
                                 <div className='form'>
-                                
+                                    <div className='details'>
+                                        <span className='title'>Modifier un produit</span>
+                                    </div>
 
                                     <div className='fields'>
                                         <div className='input-field'>
@@ -71,7 +75,7 @@ const AddProduit = ({ openSidebarToggle, OpenSidebar }) => {
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='adressemail'>Quantite</label>
-                                            <input type='number'  value={quantite} onChange={(event) => setQuantite(event.target.value)} required />
+                                            <input  type='number' id='email' value={quantite} onChange={(event) => setQuantite(event.target.value)} required />
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='numerotel'>Prix</label>
@@ -80,11 +84,11 @@ const AddProduit = ({ openSidebarToggle, OpenSidebar }) => {
                                         <div className='input-field'>
                                             <label htmlFor='numerotel'>Categorie</label>
                                             <select className="form-control" value={category} onChange={(event) => setCategory(event.target.value)} id="category" name=" Category">
-                        <option > Selectionner  une Category</option>
-                        {Categorys.map((element,index) => (
-                          <option key={index} value={element.id}>{element.nomCategory}</option>
-                        ))}
-                      </select>
+                                                <option > Selectionner  une Category</option>
+                                                {Categorys.map((element, index) => (
+                                                    <option key={index} value={element.id}>{element.nomCategory}</option>
+                                                ))}
+                                            </select>
                                         </div>
 
                                     </div>
@@ -94,13 +98,13 @@ const AddProduit = ({ openSidebarToggle, OpenSidebar }) => {
                                 </div>
                             </form>
                         </div>
-                </div>
+                    </div>
                 </div>
             </main >
         </div >
-    
+
 
     );
 }
 
-export default AddProduit
+export default UpdateProduit

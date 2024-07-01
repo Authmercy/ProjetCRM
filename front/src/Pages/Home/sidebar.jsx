@@ -42,6 +42,11 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
+                    <Link to="/ges">
+                        <BsPeopleFill className='icon' /> Gestionnaire
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
                     <Link to="/vente">
                         <BsListCheck className='icon' /> Vente
                     </Link>

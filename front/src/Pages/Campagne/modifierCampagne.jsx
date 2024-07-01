@@ -4,8 +4,9 @@ import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const AddCampagne = ({ openSidebarToggle, OpenSidebar }) => {
 
+const UpdateCampagne = ({ openSidebarToggle, OpenSidebar }) => {
+    const navigate = useNavigate();
     const [nomCampagne, setNomCampagne] = useState("");
     const [objectif, setObjectif] = useState("");
     const [date_debut, setDate_debut] = useState("");
@@ -13,30 +14,31 @@ const AddCampagne = ({ openSidebarToggle, OpenSidebar }) => {
     const [document, setDocument] = useState("");
     const [media, setMedia] = useState("");
     const [video, setVideo] = useState("");
-    const navigate = useNavigate();
     const location = useLocation();
+    const camId = location.pathname.split("/")[2];
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("http://127.0.0.1:8000/api/add_campagne_marketing/", {
+            await axios.put(`http://127.0.0.1:8000/api/${camId}/update_campagne_marketing/`, {
                 nomCampagne,
-               objectif,
-               date_debut ,
-               date_fin ,
-               document,
-               media,
-               video
-               
-            });      navigate("/campagne");
-            alert("Campagne ajouté avec success");
+                objectif,
+                date_debut,
+                date_fin,
+                document,
+                media,
+                video
+
+            });
+            navigate("/campagne");
+            alert("Campagne modifié avec success");
         } catch (error) {
             console.error(error);
         }
     };
 
 
-   
+
 
 
     return (
@@ -47,14 +49,14 @@ const AddCampagne = ({ openSidebarToggle, OpenSidebar }) => {
             <main className='main-container'>
                 <div className="contenu">
 
-                    
-                <div className='containerD'>
-                        <header>Ajouter une Campagne</header>
+
+                    <div className='containerD'>
+                        <header>Modifier une Campagne</header>
                         <div className='card-body'>
                             <form onSubmit={handleSubmit}>
                                 <div className='form'>
                                     <div className='details'>
-                                        <span className='title'>Ajouter une Campagne</span>
+                                        <span className='title'>Modifier une Campagne</span>
                                     </div>
 
                                     <div className='fields'>
@@ -76,17 +78,17 @@ const AddCampagne = ({ openSidebarToggle, OpenSidebar }) => {
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='nomclient'>Document(powerpoint,doc)</label>
-                                            <input type='file' id='nom' value={document} onChange={(event) => setDocument(event.target.value)}  />
+                                            <input type='file' id='nom' value={document} onChange={(event) => setDocument(event.target.value)} required />
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='nomclient'>Image</label>
-                                            <input type='file' id='nom' value={media} onChange={(event) => setMedia(event.target.value)} />
+                                            <input type='file' id='nom' value={media} onChange={(event) => setMedia(event.target.value)} required />
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='nomclient'>Video</label>
-                                            <input type='file' id='nom' value={video} onChange={(event) => setVideo(event.target.value)}/>
+                                            <input type='file' id='nom' value={video} onChange={(event) => setVideo(event.target.value)} required />
                                         </div>
-                                        
+
 
                                     </div>
                                     <div className='submit'>
@@ -95,13 +97,13 @@ const AddCampagne = ({ openSidebarToggle, OpenSidebar }) => {
                                 </div>
                             </form>
                         </div>
-                </div>
+                    </div>
                 </div>
             </main >
         </div >
-    
+
 
     );
 }
 
-export default AddCampagne
+export default UpdateCampagne

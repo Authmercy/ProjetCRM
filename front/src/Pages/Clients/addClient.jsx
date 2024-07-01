@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
-import { getClient } from '../../services/servise'
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 const AddClient = ({ openSidebarToggle, OpenSidebar }) => {
 
    
@@ -11,7 +12,8 @@ const AddClient = ({ openSidebarToggle, OpenSidebar }) => {
     const [prenom, setPrenom] = useState("");
     const [telephone, setTelephone] = useState("");
     const [address, setAddress] = useState("");
-
+    const navigate = useNavigate();
+ 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -22,7 +24,7 @@ const AddClient = ({ openSidebarToggle, OpenSidebar }) => {
                 email,
                 telephone,
                 address,
-            });
+            });    navigate("/client");
             alert("Client ajouté avec success");
         } catch (error) {
             console.error(error);

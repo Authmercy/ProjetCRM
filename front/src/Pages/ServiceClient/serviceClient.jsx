@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { getServiceClient } from '../../services/servise'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
+import { Link } from 'react-router-dom';
 const ServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
 
 
@@ -37,6 +38,11 @@ const ServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
                 <div className="contenu">
 
                     <div className='containerT'>
+                    <button className="addHome">
+                    <Link to="/addservice"  className="btn btn-success">
+        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+        </Link>
+      </button>
                         <h2 className='text-center'>Liste  des Interactions</h2>
                         <table className='table table-bordered table-striped'>
                             <thead>

@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { getCampagne } from '../../services/servise'
 import Header from '../Home/Header'
+import { Link } from 'react-router-dom';
 import Sidebar from '../Home/sidebar'
 const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
 
@@ -35,6 +36,9 @@ const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
 
             <main className='main-container'>
                 <div className="contenu">
+                <Link to="/addcampagne"  className="btn btn-success">
+        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+        </Link>
 
                     <div className='containerT'>
                         <h2 className='text-center'>Liste  des Categories</h2>
@@ -60,7 +64,7 @@ const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
                                         <td>
                                             <a href="#editEmployeeModal-{{forloop.counter}}" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
                                             <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button>
-                                    </tr>)
+                                            <button className="delete" ><Link to={`/modifcampagne/${item.id}`}>Modif</Link></button>  </tr>)
                                 }
                                 )
                                 }

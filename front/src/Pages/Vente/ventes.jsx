@@ -1,7 +1,7 @@
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import React, { useEffect, useState } from 'react'
-
+import { Link } from 'react-router-dom';
 import { getVente } from '../../services/servise'
 const Ventes = ({ openSidebarToggle, OpenSidebar })  => {
 

@@ -3,19 +3,19 @@ import axios from 'axios'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { getGestionnaire,getClient } from '../../services/servise'
-const AddServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
+const UpdateServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
 
     const [date_demande, setdate_demande] = useState("");
     const [ problemeSignale, setproblemeSignale] = useState("");
-    const [statut, setstatut] = useState("");
+    const [statut, setStatut] = useState("");
     const[ client, setClient] = useState("");
     const [gestionnaire, setGestionnaire] = useState("");
-    const[ Clients, setClients] = useState([]);
-    const [Gestionnaires, setGestionnaires] = useState([]);
+    const[ Clients, setClients] = useState("");
+    const [Gestionnaires, setGestionnaires] = useState("");
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("http://127.0.0.1:8000/api/add_serviceClient/", {
+            await axios.put("http://127.0.0.1:8000/api/${id}/update_serviceClient/", {
                 date_demande,
                 problemeSignale,
                 statut,
@@ -24,7 +24,7 @@ const AddServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
                 
                
             });
-            alert("Interaction ajouté avec success");
+            alert("Interaction modifié avec success");
         } catch (error) {
             console.error(error);
         }
@@ -72,14 +72,14 @@ const AddServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
             <main className='main-container'>
                 <div className="contenu">
 
-                    
+               
                 <div className='containerD'>
-                        <header>Ajouter une Interaction</header>
+                        <header>Modifier une Interaction</header>
                         <div className='card-body'>
                             <form onSubmit={handleSubmit}>
                                 <div className='form'>
                                     <div className='details'>
-                                        <span className='title'>Ajouter une Interaction</span>
+                                        <span className='title'>Modifier une Interaction</span>
                                     </div>
 
                                     <div className='fields'>
@@ -97,21 +97,32 @@ const AddServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
                                             <select className="form-control" value={client} onChange={(event) => setClient(event.target.value)} id="category" name=" Category">
                         <option > Selectionner  un Client</option>
                         {Clients.map((element,index) => (
-                          <option key={index} value={element.id}>{element.id}/{element.nom}</option>
+                          <option key={index} value={element.id}>{element.id}/{element.nomClient}</option>
                         ))}
                       </select>
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='numerotel'>Gestionnaire</label>
-                                            <select className="form-control" value={gestionnaire} onChange={(event) => setGestionnaire(event.target.value)} id="category" name=" Category">
+                                            <select className="form-control" value={gestionnaire} onChange={(event) => setClient(event.target.value)} id="category" name=" Category">
                         <option > Selectionner  un Gestionnaire</option>
                         {Gestionnaires.map((element,index) => (
                           <option key={index} value={element.id}>{element.id}/{element.nom}</option>
                         ))}
                       </select>
-                                        
+                      
+                      <div className='input-field'>
+                                            <label htmlFor='numerotel'>Statut</label>
+                                            <select className="form-control" value={statut} onChange={(event) => setStatutChoices(event.target.value)} id="category" name=" Category">
+                        <option > Selectionner  le Statut</option>
+                        
+                         {statutChoices.map(choice => (
+                    <option key={choice[0]} value={choice[0]}>{choice[1]}</option>
+                ))}
+            </select>
+                                        </div>             
                                         
                       </div>
+
                                     </div>
                                     <div className='submit'>
                                         <button type='submit'>Enregistrer l'interaction</button>
@@ -128,4 +139,4 @@ const AddServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
     );
 }
 
-export default AddServiceClient
+export default UpdateServiceClient

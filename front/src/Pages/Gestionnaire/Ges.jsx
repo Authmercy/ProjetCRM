@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { getGestionnaire } from '../../services/servise'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
+import { Link } from 'react-router-dom';
 const Gestionnaires = ({ openSidebarToggle, OpenSidebar }) => {
 
    
@@ -35,7 +36,9 @@ const Gestionnaires = ({ openSidebarToggle, OpenSidebar }) => {
 
             <main className='main-container'>
                 <div className="contenu">
-
+                <Link to="/addges"  className="btn btn-success">
+        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+        </Link>
                     <div className='containerT'>
                         <h2 className='text-center'>Liste Gestionnaires</h2>
                         <table className='table table-bordered table-striped'>

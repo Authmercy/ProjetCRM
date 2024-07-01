@@ -54,15 +54,15 @@ class GestionnaireSerializer(serializers.ModelSerializer):
  
     # create a meta class
     class Meta:
-        model = ClientProspect
+        model = Gestionnaire
         fields = '__all__' 
         read_only_fields = ["id"]
         
     def create(self, validated_data):
         
-        clientProspect = ClientProspect.objects.create(**validated_data)
+        gestionnaire = Gestionnaire.objects.create(**validated_data)
 
-        return clientProspect
+        return gestionnaire
     
     def update(self, instance, validated_data):
         for key, value in validated_data.items():

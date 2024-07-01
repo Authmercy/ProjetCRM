@@ -4,7 +4,7 @@ import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
+const UpdateGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
 
    
     const [email, setEmail] = useState("");
@@ -12,24 +12,28 @@ const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
     const [prenom, setPrenom] = useState("");
     const [telephone, setTelephone] = useState("");
     const [address, setAddress] = useState("");
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
+    const location = useLocation();
+    const clientid = location.pathname.split("/")[2];
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("http://127.0.0.1:8000/api/add_gestionnaire/", {
+            await axios.put(`http://127.0.0.1:8000/api/${clientid}/update_gestionnaire/`, {
                 nom,
                 prenom,
                 email,
                 telephone,
                 address,
             });navigate("/ges");
-            alert("Gestionnaire ajouté avec success");
+            alert("Gestionnaire modifié avec success");
         } catch (error) {
             console.error(error);
         }
     };
 
+   
    
 
 
@@ -43,12 +47,12 @@ const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
 
                     
                 <div className='containerD'>
-                        <header>Ajouter un Gestionnaire</header>
+                        <header>Modifier un Gestionnaire</header>
                         <div className='card-body'>
                             <form onSubmit={handleSubmit}>
                                 <div className='form'>
                                     <div className='details'>
-                                        <span className='title'>Ajouter un Gestionnaire</span>
+                                        <span className='title'>Modifier un Gestionnaire</span>
                                     </div>
 
                                     <div className='fields'>
@@ -89,4 +93,4 @@ const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
     );
 }
 
-export default AddGestionnaire
+export default UpdateGestionnaire
