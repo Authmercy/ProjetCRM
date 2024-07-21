@@ -187,7 +187,12 @@ class LigneCommandeSerializer(serializers.ModelSerializer):
         fields = ['id', 'produit', 'quantite', 'date_ajout', 'produit_id','total']
     def get_total(self, obj):
         return obj.total()
-    
+    def validate(self, data):
+        produit = data['produit']
+        quantite = data['quantite']
+        if produit.quantite < quantite:
+            raise ValidationError(f'La quantité demandée ({quantite}) dépasse la quantité disponible ({produit.quantite}).')
+        return data
     
     def create(self, validated_data):    
          ligneCommande = LigneCommande.objects.create(**validated_data)
@@ -204,7 +209,8 @@ class CommandeSerializer(serializers.ModelSerializer):
         model = Commande
         fields = '__all__'
         read_only_fields = ['id', 'total_quantite', 'total_prix']
-        
+    
+       
     def get_total_quantite(self, obj):
         return obj.total_quantite()
 
@@ -214,6 +220,7 @@ class CommandeSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         paniers_data = validated_data.pop('paniers')
         commande = Commande.objects.create(**validated_data)
+        
         for panier_data in paniers_data:
             ligne_commande = LigneCommande.objects.create(**panier_data)
             commande.paniers.add(ligne_commande)
@@ -226,6 +233,11 @@ class CommandeSerializer(serializers.ModelSerializer):
                 total_quantite=commande.total_quantite(),
             
             )
+            for panier_data in paniers_data:
+                    produit = panier_data['produit']
+                    quantite = panier_data['quantite']
+                    produit.quantite -= quantite
+                    produit.save()
             vente.paniers.set(commande.paniers.all())
             vente.save()
         return commande
@@ -242,11 +254,11 @@ class CommandeSerializer(serializers.ModelSerializer):
             instance.paniers.add(ligne_commande)
         if instance.statut == 'Valide':
             vente, created = Vente.objects.get_or_create(
-                client=instance.client,
+                    client=instance.client,
                 date_fin=instance.date_fin,
+                commande=instance,
                 total_prix= instance.total_prix(),
-               
-                total_quantite=instance.total_quantite()
+                total_quantite=instance.total_quantite(),
             )
             vente.paniers.set(instance.paniers.all())
             vente.save()
@@ -259,6 +271,7 @@ class VenteSerializer(serializers.ModelSerializer):
         client = ClientSerializer(read_only=True)
         client_id = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all(), source='client', write_only=True)
         paniers = LigneCommandeSerializer(many=True)
+      
         class Meta:
             model = Vente
             fields = '__all__'
