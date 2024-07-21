@@ -1,0 +1,86 @@
+/* sidebar.css */
+
+#sidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: #ecf0f1;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all 0.3s;
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar.sidebar-responsive {
+    left: -250px;
+}
+
+.sidebar-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #34495e;
+    border-bottom: 1px solid #1abc9c;
+}
+
+.sidebar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.close_icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.sidebar-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Ensures the list takes up all available space */
+}
+
+.sidebar-list-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #34495e;
+}
+
+.sidebar-list-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ecf0f1;
+    padding: 0.25rem 1rem; /* Reduced padding for more compact items */
+    width: 100%;
+    transition: background 0.3s, color 0.3s;
+}
+
+.sidebar-list-item a:hover {
+    
+    color: #fff;
+}
+
+.sidebar-list-item .icon {
+    font-size: 1.25rem;
+    margin-right: 0.5rem; /* Reduced margin for more compact items */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #sidebar {
+        left: -250px;
+    }
+
+    #sidebar.sidebar-responsive {
+        left: 0;
+    }
+}

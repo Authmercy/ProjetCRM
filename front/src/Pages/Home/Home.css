@@ -1,0 +1,55 @@
+/* home.css */
+
+.main-container {
+    padding: 20px;
+    background-color: #1c2a40;
+  }
+  
+  .main-title {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .main-cards {
+    display:grid;
+    grid-template-columns: repeat(4, 10fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .card-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .card_icon {
+    font-size: 2rem;
+  }
+  
+  .charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .chart-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .chart-container h3 {
+    margin-bottom: 10px;
+  }
+  

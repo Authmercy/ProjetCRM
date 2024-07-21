@@ -5,6 +5,7 @@ import { getCampagne } from '../../services/servise'
 import Header from '../Home/Header'
 import { Link } from 'react-router-dom';
 import Sidebar from '../Home/sidebar'
+import './cam.css'
 const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
 
 
@@ -49,6 +50,9 @@ const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
                                     <th>Objectif</th>
                                     <th>Date_debut</th>
                                     <th>Date_fin</th>
+                                    <th>Document</th>
+                                    <th>Photo</th>
+                                    <th>Video</th>
                                     <th>Action</th>
                                   
                                    
@@ -62,9 +66,25 @@ const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
                                         <td> {item.date_debut}</td>
                                         <td> {item.date_fin}</td>
                                         <td>
-                                            <a href="#editEmployeeModal-{{forloop.counter}}" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
+                                                {item.document && (
+                                                    <a href={`${item.document}`} download>Telecharger</a>
+                                                )}
+                                            </td>
+                                            <td>
+                                                {item.media && (
+                                                    <a href={`${item.media}`} target="_blank" rel="noopener noreferrer">Visualiser</a>
+                                                )}
+                                            </td>
+                                            <td>
+                                                {item.video && (
+                                                    <a href={`${item.video}`} target="_blank" rel="noopener noreferrer">Visualiser</a>
+                                                )}
+                                            </td>
+                                      
+                                        <td>
+                                        <button className="edite" ><Link to={`/modifcampagne/${item.id}`}>Modif</Link></button>
                                             <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button>
-                                            <button className="delete" ><Link to={`/modifcampagne/${item.id}`}>Modif</Link></button>  </tr>)
+                                            </td>  </tr>)
                                 }
                                 )
                                 }

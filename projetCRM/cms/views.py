@@ -15,10 +15,7 @@ from rest_framework.response import Response
 from django.views import View
 
 class adminView(viewsets.ModelViewSet):
- 
     serializer_class = ServiceClientSerializer
- 
- 
     queryset = ServiceClient.objects.all()
     
 class ListServiceClientView(ListAPIView):
@@ -29,7 +26,7 @@ class CreateServiceClientView(CreateAPIView):
     queryset= ServiceClient.objects.all()
     serializer_class= ServiceClientSerializer
     
-class UpdateServiceClientView(UpdateAPIView): 
+class UpdateServiceClientView(UpdateAPIView):
     queryset=ServiceClient.objects.all()
     serializer_class= ServiceClientSerializer
 
@@ -44,11 +41,7 @@ class StatutChoicesAPIView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         return Response({'choices': statut})
     
-class StatutAPIView(generics.ListAPIView):
-    serializer_class = None 
-    
-    def get(self, request, *args, **kwargs):
-        return Response({'choices': statutCommande})
+
 
 class adminView(viewsets.ModelViewSet):
  
@@ -93,22 +86,24 @@ class UpdateGestionnaireView(UpdateAPIView):
 class DeleteGestionnaireView(DestroyAPIView):
     queryset= Gestionnaire.objects.all()
     serializer_class= GestionnaireSerializer
-         
+
+
+             
 class adminView(viewsets.ModelViewSet):
     serializer_class = CommandeSerializer
     queryset = Commande.objects.all()
 class ListCommandeView(ListAPIView):
     queryset= Commande.objects.all()
     serializer_class= CommandeSerializer
+
     
 class CreateCommandeView(CreateAPIView):
     queryset= Commande.objects.all()
     serializer_class= CommandeSerializer
     
 class UpdateCommandeView(UpdateAPIView): 
-    queryset=Commande.objects.all()
+    queryset= Commande.objects.all()
     serializer_class= CommandeSerializer
-
 class DeleteCommandeView(DestroyAPIView):
     queryset= Commande.objects.all()
     serializer_class= CommandeSerializer
@@ -234,5 +229,5 @@ class ServiceClientCountView(View):
         return JsonResponse({'total_ServiceClient': total_ServiceClient})       
 class ClientCountView(View):
     def get(self, request, *args, **kwargs):
-        total_Client = ServiceClient.objects.count()
+        total_Client = Client.objects.count()
         return JsonResponse({'total_Client': total_Client})       

@@ -5,6 +5,7 @@ import { getServiceClient } from '../../services/servise'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { Link } from 'react-router-dom';
+import './service.css'
 const ServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
 
 
@@ -37,8 +38,8 @@ const ServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
             <main className='main-container'>
                 <div className="contenu">
 
-                    <div className='containerT'>
-                    <button className="addHome">
+                    <div className='container'>
+                    <button className="contenu">
                     <Link to="/addservice"  className="btn btn-success">
         <i className="material-icons"> &#xE147;</i> <span>Add </span>
         </Link>
@@ -62,12 +63,12 @@ const ServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
                                     return (<tr key={item.id}>
                                         <td >{item.date_demande}</td>
                                         <td> {item.problemeSignale}</td>
-                                        <td> {item.client}</td>
-                                        <td> {item.gestionnaire}</td>
+                                        <td> {item.client.nom}</td>
+                                        <td> {item.gestionnaire.nom}</td>
                                         <td> {item.statut}</td>
                                         <td>
-                                            <a href="#editEmployeeModal-{{forloop.counter}}" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
-                                            <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button></tr>)
+                                        <button className="edite" ><Link to={`/modifservice/${item.id}`}>Modif</Link></button>
+                                            <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button> </td></tr>)
                                 }
                                 )
                                 }

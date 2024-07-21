@@ -63,10 +63,12 @@ const Client = ({ openSidebarToggle, OpenSidebar }) => {
                                         <td>{client.email}</td>
                                         <td>{client.telephone}</td>
                                         <td>{client.address}</td>
-                                        <td>
-    <a href="#editEmployeeModal-{{forloop.counter}}" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
-    <button className="delete" onClick={() => handleDelete(client.id)}>Delete</button> 
-    <button className="delete" ><Link to={`/modifclient/${client.id}`}>Modif</Link></button>
+                                        
+    
+                                        <td> <button className="edite" ><Link to={`/modifclient/${client.id}`}>Modif</Link></button>
+                       <button className="delete" onClick={() => handleDelete(client.id)}>Delete</button> </td>
+
+    
     </tr>)
                                 }
                                 )

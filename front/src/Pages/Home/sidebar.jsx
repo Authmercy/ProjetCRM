@@ -1,8 +1,11 @@
 import React from 'react'
-import {
-BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill,
-BsListCheck, BsMenuButtonWideFill, BsFillGearFill
+import './/sidebar.css'
+import { BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill,
+BsListCheck, BsMenuButtonWideFill, BsFillGearFill , BsFillBagFill , BsChatDotsFill 
 }
+
+
+
     from 'react-icons/bs'
  import { Link } from 'react-router-dom';
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
@@ -22,8 +25,13 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/cat">
-                        <BsFillArchiveFill className='icon' /> Categories
+                    <Link to="/client">
+                        <BsPeopleFill  className='icon' /> Client 
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to="/clientP">
+                        <BsPeopleFill  className='icon' /> Prospect 
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
@@ -32,13 +40,13 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/campagne">
-                        <BsFillGrid3X3GapFill className='icon' /> Campagne
+                    <Link to="/cat">
+                        <BsFillBagFill className='icon' /> Categories
                     </Link>
-                </li>
+                    </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/client">
-                        <BsPeopleFill className='icon' /> Client
+                    <Link to="/campagne">
+                        <BsListCheck className='icon' /> Campagne
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
@@ -48,24 +56,20 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
                 </li>
                 <li className='sidebar-list-item'>
                     <Link to="/vente">
-                        <BsListCheck className='icon' /> Vente
+                        <BsCart3 className='icon' /> Vente
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
                     <Link to="/commade">
-                        <BsListCheck className='icon' /> Commande
+                        <BsCart3 className='icon' /> Commande
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
                     <Link to="/service">
-                        <BsListCheck className='icon' />ServiceClient
+                        <BsChatDotsFill className='icon' />ServiceClient
                     </Link>
                 </li>
-                <li className='sidebar-list-item'>
-                    <Link to="/apropos">
-                        <BsMenuButtonWideFill className='icon' /> Apropos
-                    </Link>
-                </li>
+                
 
             </ul>
         </aside>

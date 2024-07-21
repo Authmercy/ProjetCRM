@@ -3,6 +3,10 @@ export async function getClient() {
     const res = await axios.get("http://127.0.0.1:8000/api/clientList/");
     return res.data
 }
+export async function getClientProspect() {
+    const res = await axios.get("http://127.0.0.1:8000/api/clientListP/");
+    return res.data
+}
 export async function getProduit()  {
      const res = await axios.get("http://127.0.0.1:8000/api/produitList/");
 return res.data

@@ -1,0 +1,71 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+}
+
+/* Sidebar styling */
+.sidebar {
+    grid-column: 1 / 2;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+}
+.main-container {
+    padding: 20px;
+    background-color: #f4f7f9;
+    overflow-y: auto;
+}
+/* Main content container */
+.main-container {
+    grid-column: 2 / 3;
+    padding: 20px;
+    background-color: #ecf0f1;
+    overflow-y: auto;
+}
+
+/* Header styling */
+header {
+    grid-column: 1 / -1;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+}
+
+/* Content styling */
+.contenu {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+h2.text-center {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #34495e;
+}
+
+/* Add button styling */
+button.addHome {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+button.addHome .btn-success {
+    background-color: #27ae60;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+button.addHome .btn-success i {
+    margin-right: 5px;
+    }

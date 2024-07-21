@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'authentification',
     'cms',
+    'djoser',
     'rest_framework_simplejwt',
 ]
 MIDDLEWARE = [

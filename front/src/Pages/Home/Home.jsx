@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill } from 'react-icons/bs'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { getClientCount, getCommandeCount, getCampagneCount, getVenteCount, getProduitCount, getServiceCount } from '../../services/servise'
+import './/Home.css'; // Ensure to import your CSS file
 
-import 
-{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
- from 'react-icons/bs'
- import 
- { BarChart, Bar,  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
- from 'recharts';
-import { getClientCount,getCommandeCount,getCampagneCount,getVenteCount,getProduitCount, getServiceCount } from '../../services/servise'
+
+
 function Home() {
   const [campagne, setCampagne] = useState(0);
   const [vente, setVente] =  useState(0);
@@ -139,6 +138,30 @@ useEffect(() => {
           pv: 4300,
           amt: 2100,
         },
+        {
+          name: 'Page H',
+          uv: 4000,
+          pv: 2400,
+          amt: 2400,
+        },
+        {
+          name: 'Page I',
+          uv: 3000,
+          pv: 1398,
+          amt: 2210,
+        },
+        {
+          name: 'Page J',
+          uv: 2000,
+          pv: 9800,
+          amt: 2290,
+        },
+        {
+          name: 'Page K',
+          uv: 2780,
+          pv: 3908,
+          amt: 2000,
+        },
       ];
      
 
@@ -229,4 +252,4 @@ useEffect(() => {
   )
 }
 
-export default Home
+export default Home;

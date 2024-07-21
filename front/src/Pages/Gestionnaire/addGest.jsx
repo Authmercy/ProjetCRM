@@ -3,6 +3,7 @@ import axios from 'axios'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import './spges.css'
 
 const AddGestionnaire = ({ openSidebarToggle, OpenSidebar }) => {
 

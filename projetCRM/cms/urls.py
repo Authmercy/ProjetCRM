@@ -5,7 +5,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from .views import *
-
+from projetCMS.settings import DEBUG,STATIC_ROOT,MEDIA_ROOT, MEDIA_URL, STATIC_URL 
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -17,12 +17,17 @@ urlpatterns = [
     path('<int:pk>/delete_campagne_marketing/',views.DeleteCampagneMarketingView.as_view(), name='campagne_marketing_delete'),  
     path('categoryList/',views.ListCategoryView.as_view(), name='category'),
     path('add_category/',views.CreateCategoryView.as_view(), name='create_category'),
+    
     path('<int:pk>/update_category/',views.UpdateCategoryView.as_view(), name='category_update'),
     path('<int:pk>/delete_category/',views.DeleteCategoryView.as_view(), name='category_delete'),  
-    path('clientList/',views.ListClientProspectView.as_view(), name='client'),
-    path('add_client/',views.CreateClientProspectView.as_view(), name='create_client'),
-    path('<int:pk>/update_client/',views.UpdateClientProspectView.as_view(), name='client_update'),
-    path('<int:pk>/delete_client/',views.DeleteClientProspectView.as_view(), name='client_delete'),  
+    path('clientList/',views.ListClientView.as_view(), name='client'),
+    path('add_client/',views.CreateClientView.as_view(), name='create_client'),
+    path('<int:pk>/update_client/',views.UpdateClientView.as_view(), name='client_update'),
+    path('<int:pk>/delete_client/',views.DeleteClientView.as_view(), name='client_delete'),
+    path('clientListP/',views.ListClientProspectView.as_view(), name='clientP'),
+    path('add_clientP/',views.CreateClientProspectView.as_view(), name='create_clientP'),
+    path('<int:pk>/update_clientP/',views.UpdateClientProspectView.as_view(), name='clientp_update'),
+    path('<int:pk>/delete_clientP/',views.DeleteClientProspectView.as_view(), name='clientp_delete'),    
     path('commandeList/',views.ListCommandeView.as_view(), name='commande'),
     path('add_commande/',views.CreateCommandeView.as_view(), name='create_commande'),
     path('<int:pk>/update_commande/',views.UpdateCommandeView.as_view(), name='commande_update'),
@@ -39,8 +44,7 @@ urlpatterns = [
     path('add_serviceClient/',views.CreateServiceClientView.as_view(), name='create_serviceClient'),
     path('<int:pk>/update_serviceClient/',views.UpdateServiceClientView.as_view(), name='serviceClient_update'),
     path('<int:pk>/delete_serviceClient/',views.DeleteServiceClientView.as_view(), name='serviceClient_delete'),  
-    path('api/statut-choices/', views.StatutChoicesAPIView.as_view(), name='statut_choices'),
-    path('api/choices/', views.StatutAPIView.as_view(), name='choices'),
+    path('statut-choices/', views.StatutChoicesAPIView.as_view(), name='statut_choices'),
     path('venteList/',views.ListVenteView.as_view(), name='vente'),
     path('add_vente/',views.CreateVenteView.as_view(), name='create_vente'),
     path('<int:pk>/update_vente/',views.UpdateVenteView.as_view(), name='vente_update'),
@@ -51,4 +55,7 @@ urlpatterns = [
     path('service/count/', ServiceClientCountView.as_view(), name='commande-count'),
     path('produit/count/', ProduitCountView.as_view(), name='produit-count'),
      path('client/count/', ClientCountView.as_view(), name='client-count'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+if DEBUG:
+    urlpatterns += static(STATIC_URL, document_root = STATIC_ROOT)
+    urlpatterns += static(MEDIA_URL, document_root = MEDIA_ROOT)

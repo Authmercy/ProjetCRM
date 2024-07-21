@@ -2,34 +2,46 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getGestionnaire,getClient } from '../../services/servise'
 const UpdateServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
-
+    const navigate = useNavigate();
     const [date_demande, setdate_demande] = useState("");
     const [ problemeSignale, setproblemeSignale] = useState("");
-    const [statut, setStatut] = useState("");
+    const [statut, setStatut] = useState("Nouveau")
     const[ client, setClient] = useState("");
     const [gestionnaire, setGestionnaire] = useState("");
-    const[ Clients, setClients] = useState("");
-    const [Gestionnaires, setGestionnaires] = useState("");
+    const[ Clients, setClients] = useState([]);
+    const [Gestionnaires, setGestionnaires] = useState([]);
+    const [statuts, setStatuts] = useState([
+        {value: 'Nouveau', label: 'Nouveau'},
+        {value: 'Encour', label: 'Encour de traitement'},
+        {value: 'Refuse', label: 'Refusé'},
+        {value: 'Regle', label: 'Reglé'},
+        {value: 'Ferme', label: 'Fermé'},
+    ]);
+
+    
+    const location = useLocation();
+    const camId = location.pathname.split("/")[2];
+ 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.put("http://127.0.0.1:8000/api/${id}/update_serviceClient/", {
+            await axios.put(`http://127.0.0.1:8000/api/${camId}/update_serviceClient/`, {
                 date_demande,
                 problemeSignale,
                 statut,
-                client ,
-                gestionnaire
+                client_id: client ,
+                gestionnaire_id: gestionnaire,
                 
                
-            });
+            });  navigate("/service");
             alert("Interaction modifié avec success");
         } catch (error) {
             console.error(error);
         }
     };
-
     useEffect(() => {
         let mount = true
         getClient().then(res => {
@@ -48,21 +60,6 @@ const UpdateServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
             return () => mount = false
         })
     }, []);
-    const [statutChoices, setStatutChoices] = useState([]);
-
-    useEffect(() => {
-        fetchStatutChoices();
-    }, []);
-
-    const fetchStatutChoices = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/api/statut-choices/');
-            setStatutChoices(response.data.choices);
-        } catch (error) {
-            console.error('Error fetching statut choices:', error);
-        }
-    };
-
 
     return (
         <div className='grid-container'>
@@ -76,10 +73,10 @@ const UpdateServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
                 <div className='containerD'>
                         <header>Modifier une Interaction</header>
                         <div className='card-body'>
-                            <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit}>
                                 <div className='form'>
                                     <div className='details'>
-                                        <span className='title'>Modifier une Interaction</span>
+                                        <span className='title'>Ajouter une Interaction</span>
                                     </div>
 
                                     <div className='fields'>
@@ -97,32 +94,33 @@ const UpdateServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
                                             <select className="form-control" value={client} onChange={(event) => setClient(event.target.value)} id="category" name=" Category">
                         <option > Selectionner  un Client</option>
                         {Clients.map((element,index) => (
-                          <option key={index} value={element.id}>{element.id}/{element.nomClient}</option>
+                          <option key={index} value={element.id}>{element.id}/{element.nom}</option>
                         ))}
                       </select>
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='numerotel'>Gestionnaire</label>
-                                            <select className="form-control" value={gestionnaire} onChange={(event) => setClient(event.target.value)} id="category" name=" Category">
+                                            <select className="form-control" value={gestionnaire} onChange={(event) => setGestionnaire(event.target.value)} id="category" name=" Category">
                         <option > Selectionner  un Gestionnaire</option>
                         {Gestionnaires.map((element,index) => (
                           <option key={index} value={element.id}>{element.id}/{element.nom}</option>
                         ))}
                       </select>
-                      
-                      <div className='input-field'>
-                                            <label htmlFor='numerotel'>Statut</label>
-                                            <select className="form-control" value={statut} onChange={(event) => setStatutChoices(event.target.value)} id="category" name=" Category">
-                        <option > Selectionner  le Statut</option>
-                        
-                         {statutChoices.map(choice => (
-                    <option key={choice[0]} value={choice[0]}>{choice[1]}</option>
-                ))}
-            </select>
-                                        </div>             
                                         
-                      </div>
-
+                      <div className='input-field'>
+                                                <label htmlFor='numerotel'>Statut</label>
+                                    
+                                      <select value={statut} onChange={(e) => setStatut(e.target.value)} required>
+                                      <option value="">Selectionner le statut a Client</option>
+                        {statuts.map((statut) => (
+                            <option key={statut.value} value={statut.value}>
+                                {statut.label}
+                            </option>
+                        ))}
+                    </select>
+                                            </div>
+                                        </div>          
+                      
                                     </div>
                                     <div className='submit'>
                                         <button type='submit'>Enregistrer l'interaction</button>

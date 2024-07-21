@@ -5,6 +5,7 @@ import { getProduit } from '../../services/servise'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { Link } from 'react-router-dom';
+import './/pro.css'
 const Produit = ({ openSidebarToggle, OpenSidebar }) => {
 
 
@@ -59,11 +60,11 @@ const Produit = ({ openSidebarToggle, OpenSidebar }) => {
                                         <td> {item.description}</td>
                                         <td>{item.quantite}</td>
                                         <td>{item.prix}</td>
-                                        <td>{item.nom_category}</td>
-                                        <td>
-                                            <a href="#editEmployeeModal-{{forloop.counter}}" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
+                                        <td>{item.category.nomCategory}</td>
+                                        
+                                           
                                         <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button>
-                                        <button className="delete" ><Link to={`/modifproduit/${item.id}`}>Modif</Link></button> </tr>
+                                        <button className="edite" ><Link to={`/modifproduit/${item.id}`}>Modif</Link></button> </tr>
                                     )
                                 }
                                 )

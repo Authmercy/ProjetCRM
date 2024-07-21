@@ -23,7 +23,7 @@ const UpdateProduit = ({ openSidebarToggle, OpenSidebar }) => {
                 description,
                 quantite,
                 prix,
-                category,
+                category_id: category,
             });
             navigate("/produit");
             alert("Produit modifié avec success");

@@ -51,4 +51,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password', 'password_confirm')
         
     password = serializers.CharField(write_only=True, validators=[validate_password])
+    password_confirm = serializers.CharField(write_only=True)
     
+    def validate(self, data):
+        if data['password'] != data['password_confirm']:
+            raise serializers.ValidationError("Les mots de passe ne correspondent pas")
+        return data
