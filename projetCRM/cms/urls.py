@@ -54,8 +54,19 @@ urlpatterns = [
     path('campagne/count/', CampagneCountView.as_view(), name='campagne-count'),
     path('service/count/', ServiceClientCountView.as_view(), name='commande-count'),
     path('produit/count/', ProduitCountView.as_view(), name='produit-count'),
-     path('client/count/', ClientCountView.as_view(), name='client-count'),
-]
+    path('client/count/', ClientCountView.as_view(), name='client-count'),
+    path('commande-pdf/', ListCommandeView.generate_pdf, name='commande_pdf'),
+    path('vente-pdf/', ListVenteView.generate_pdf, name='vente-pdf'),
+    path('products/search/', search_products, name='search_products'),
+   
+    path('vente/search/', search_vente, name='search_vente'),
+    path('commande/search/', search_commande, name='search_products'),
+    path('campagne/search/', search_campagne, name='search_products'),
+    path('pclients/search/', search_pclient, name='search_pclient'),
+    path('cats/search/', search_category, name='search_category'),
+    path('clients/search/', search_client, name='search_client'),]
+            
+
 if DEBUG:
     urlpatterns += static(STATIC_URL, document_root = STATIC_ROOT)
     urlpatterns += static(MEDIA_URL, document_root = MEDIA_ROOT)

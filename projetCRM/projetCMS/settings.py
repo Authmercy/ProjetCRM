@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'authentification',
     'cms',
     'djoser',
+    
     'rest_framework_simplejwt',
 ]
 MIDDLEWARE = [
@@ -79,7 +80,7 @@ SIMPLE_JWT = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

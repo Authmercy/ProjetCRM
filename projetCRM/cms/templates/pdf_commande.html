@@ -1,0 +1,70 @@
+<!-- pdf_template.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1{
+            text-align: center;
+        }
+        table, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th{
+            padding-top: 5px;
+          
+        }
+        td{
+            padding-top: 5px;
+            padding-left: 15px;
+        }
+        .content {
+            margin: 20px;
+        }
+        .signature{
+            padding-top: 55px;
+            padding-left: 500px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Bon de Commande</h1>
+    <p>Code Commande: {{ commande.id }}</p>
+    
+    <p>Client: {{ commande.client.nom }}</p>
+    <p>Date: {{ commande.date_fin }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix_Unitaire</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for panier in commande.paniers.all %}
+                    <td>{{ panier.produit.nomProduit }}</td>
+                    <td>{{ panier.quantite }}</td>
+                    <td>{{ panier.produit.prix }}</td>
+                    <td>{{ panier.total }}</td></tr>{% endfor %}
+                <tr>
+                    <td> <b>TOTAL </b></td>
+                    <td ><b>{{ commande.total_quantite}}</b></td>
+                    <td> </td>
+                    <td><b>{{ commande.total_prix }}</b></td>
+        </tbody>
+    </table>
+
+    
+</body>
+</html>
