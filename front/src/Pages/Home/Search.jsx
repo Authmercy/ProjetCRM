@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
 function SearchBar() {
   const [query, setQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+    const [products, setProducts] = useState([]);
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`/api/search/?query=${query}`);
-      setSearchResults(response.data.results);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
+    useEffect(() => {
+        if (query.length > 0) {
+            fetch(`http://localhost:8000/api/products/search/?name=${query}`)
+                .then(response => response.json())
+                .then(data => setProducts(data))
+                .catch(error => console.error('Error fetching products:', error));
+        } else {
+            setProducts([]);
+        }
+    }, [query]);
 
   return (
     <div>
@@ -22,15 +24,15 @@ function SearchBar() {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Rechercher un produit..."
       />
-      <button onClick={handleSearch}>Rechercher</button>
       <ul>
-        {searchResults.map((product) => (
+        {products.map((product => (
           <li key={product.id}>
-            <h3>{product.name}</h3>
+            <h3>{product.nomProduit}</h3>
             <p>{product.description}</p>
-            <p>Price: {product.price}</p>
+            <p>prix: {product.prix}</p>
+            <p>qte: {product.quantite}</p>
           </li>
-        ))}
+        )))}
       </ul>
     </div>
   );

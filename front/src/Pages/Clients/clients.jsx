@@ -4,6 +4,7 @@ import { getClient } from '../../services/servise'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { Link } from 'react-router-dom';
+import './client.css'
 const Client = ({ openSidebarToggle, OpenSidebar }) => {
 
    
@@ -11,7 +12,8 @@ const Client = ({ openSidebarToggle, OpenSidebar }) => {
 
 
     const [Clients, setClients] = useState([])
-
+    const [clients, setclients] = useState([])
+    const [cl, setcls] = useState([])
     useEffect(() => {
         let mount = true
         getClient().then(res => {
@@ -28,7 +30,19 @@ const Client = ({ openSidebarToggle, OpenSidebar }) => {
           console.log(err);
         }
       };
-
+      const [query, setQuery] = useState('');
+      
+      useEffect(() => {
+        if (query.length > 0) {
+            fetch(`http://localhost:8000/api/clients/search/?name=${query}`)
+                .then(response => response.json())
+                .then(data => setcls(data))
+                .catch(error => console.error('Error fetching clients:', error));
+        } else {
+            setcls([]);
+        }
+    }, [query]);
+    
     return (
         <div className='grid-container'>
             <Header OpenSidebar={OpenSidebar} />
@@ -38,8 +52,41 @@ const Client = ({ openSidebarToggle, OpenSidebar }) => {
 
                 <div className="contenu">
                 <Link to="/addclient"  className="btn btn-success">
-        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+        <i className="material-icons"> </i> <span>Add </span>
         </Link>
+
+            <div className="recherche">
+                 <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Rechercher un client."
+                
+            />
+                </div >
+<table className='table table-bordered table-striped'>
+                           
+                            <tbody>
+                                {cl?.map(client => {
+                                    return (<tr key={client.id}>
+                                        <td >{client.nom}
+                                        </td>
+                                        <td> {client.prenom}</td>
+                                        <td>{client.email}</td>
+                                        <td>{client.telephone}</td>
+                                        <td>{client.address}</td>
+                                        
+    
+                                        <td> <button className="edite" ><Link to={`/modifclient/${client.id}`}>Modif</Link></button>
+                       <button className="delete" onClick={() => handleDelete(client.id)}>Delete</button> </td>
+
+    
+    </tr>)
+                                }
+                                )
+                                }
+                            </tbody>
+                        </table>
 
                     <div className='containerT'>
                         <h2 className='text-center'>Liste Clients</h2>
@@ -80,6 +127,8 @@ const Client = ({ openSidebarToggle, OpenSidebar }) => {
 
             </main >
         </div >
+        
+    
     
 
     )

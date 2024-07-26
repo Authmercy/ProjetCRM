@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'authentification',
     'cms',
     'djoser',
-    
     'rest_framework_simplejwt',
 ]
 MIDDLEWARE = [
@@ -160,6 +159,15 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_FROM_EMAIL = 'nahsangmercytangham@gmail.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'nahsangmercytangham@gmail.com'
+SERVER_EMAIL = 'nahsangmercytangham@gmail.com'
+EMAIL_HOST_PASSWORD = 'nahsangmercy2001??'
+
 
 # AUTH_USER_MODEL = 'authentification.User'
 CORS_ORIGIN_ALLOW_ALL = True

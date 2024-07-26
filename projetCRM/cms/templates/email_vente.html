@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rapport de vente</title>
+</head>
+<body>
+    <h1>Rapport de vente</h1>
+    <p>Cher {{ order.client.nom }},</p>
+    <p>Merci pour votre Achat!</p>
+    <p>Code Vente: {{ order.id }}</p>
+    <p>Date: {{ order.date_fin }}</p>
+    <p>Prix Total: {{ order.total_prix }}</p>
+    <p>Produit</p>
+   
+    {% for item in commande.paniers.all %}
+    <ul>        <li>{{ item.produit.nomProduit }} - Quantity: {{ item.quantite }} - Price: {{ item.produit.prix }}</li>
+        {% endfor %}      
+ </ul>
+
+</body>
+</html>

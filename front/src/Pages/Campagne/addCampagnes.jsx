@@ -39,6 +39,7 @@ const AddCampagne = ({ openSidebarToggle, OpenSidebar }) => {
             alert("Campagne ajoutée avec succès");
         } catch (error) {
             console.error(error);
+            console.error('Error response data:', error.response?.data);
             alert("La date de fin ne peut pas être antérieure à la date de début.");
         }
     };
@@ -69,7 +70,7 @@ const AddCampagne = ({ openSidebarToggle, OpenSidebar }) => {
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='nomclient'>Date de début</label>
-                                            <input type='date' id='nom' value={date_debut} onChange={(event) => setDate_debut(event.target.value)} required />
+                                            <input type='date' id='nom' value={date_debut} onChange={(event) => setDate_debut(event.target.value)}  />
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='nomclient'>Date de fin</label>

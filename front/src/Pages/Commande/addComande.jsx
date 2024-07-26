@@ -5,6 +5,7 @@ import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { Link, useNavigate } from "react-router-dom";
 import { getClient, getProduit } from '../../services/servise'
+import './acom.css'
 const AddCommande = ({ openSidebarToggle, OpenSidebar }) => {
 
     const [Produits, setProduits] = useState([])
@@ -51,6 +52,7 @@ const AddCommande = ({ openSidebarToggle, OpenSidebar }) => {
         } catch (error) {
             console.error('Error creating commande:', error);
             console.error('Error response data:', error.response?.data);
+            alert('La quantité demandée  dépasse la quantité disponible .')
         }
     };
 

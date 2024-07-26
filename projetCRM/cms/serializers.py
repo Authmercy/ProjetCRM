@@ -4,7 +4,6 @@ from .models import CampagneMarketing
 
 
 
-
 class ClientSerializer(serializers.ModelSerializer):
  
     # create a meta class
@@ -22,8 +21,8 @@ class ClientSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         for key, value in validated_data.items():
             setattr(instance, key, value)
-
         instance.save()
+        return instance 
 class GestionnaireSerializer(serializers.ModelSerializer):
  
     # create a meta class
@@ -75,26 +74,20 @@ class CampagneMarketingSerializer(serializers.ModelSerializer):
         fields = '__all__' 
         read_only_fields = ["id"]
         
-    client = ClientSerializer(read_only=True)
-    client_id = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all(), source='client', write_only=True)
     
     def validate(self, data):
         date_debut = data.get('date_debut')
         date_fin = data.get('date_fin')
         if date_fin and date_fin < date_debut:
             raise serializers.ValidationError('La date de fin ne peut pas être antérieure à la date de début.')
-
         return data
     def create(self, validated_data):
-        
         campagneMarketing = CampagneMarketing.objects.create(**validated_data)
-
         return campagneMarketing
     
     def update(self, instance, validated_data):
         for key, value in validated_data.items():
             setattr(instance, key, value)
-
         instance.save()
         return instance    
         
@@ -125,7 +118,7 @@ class ClientProspectSerializer(serializers.ModelSerializer):
         instance.save()
         return instance 
 
-        return instance    
+       
                     
 class ProduitSerializer(serializers.ModelSerializer):
     # create a meta class
@@ -276,9 +269,19 @@ class VenteSerializer(serializers.ModelSerializer):
             model = Vente
             fields = '__all__'
         
-            
-        
-        
+class EmailSerializer(serializers.ModelSerializer):
+    client_id = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all(), source='client', write_only=True)
+
+    class Meta:
+        model = Email
+        fields = '__all__'
+
+    def create(self, validated_data):
+        email = Email.objects.create(**validated_data)
+        email.send_order_email()
+        return email
+       
+  
 
                 
 

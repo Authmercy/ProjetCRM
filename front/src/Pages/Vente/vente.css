@@ -1,0 +1,17 @@
+button {
+    background-color: transparent;
+    border: 2px solid #19324c; /* Blue */
+    color: #007bff;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  button:hover {
+    background-color: #007bff;
+    color: white;
+  }

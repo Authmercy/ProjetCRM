@@ -1,6 +1,11 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from datetime import date
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
+
 # Create your models here.
 class CampagneMarketing(models.Model):
     nomCampagne = models.CharField(max_length=50)
@@ -141,3 +146,22 @@ class Vente(models.Model):
 
     def __str__(self):
         return f"Vente {self.id} - Commande {self.commande.id}"
+
+class Email(models.Model):
+    date = models.DateField(default= date.today())
+    objet = models.CharField(max_length=50)
+    message= models.TextField ()
+    emailFrom= models.TextField (default="'nahangmercytangham@gmail.com'")
+    client = models.ForeignKey(Client,on_delete=models.CASCADE,null=True, related_name='emails')
+   
+    def send_order_email(self):
+        client_emails = Client.objects.values_list('email', flat=True) if not self.client else [self.client.email]
+        email = EmailMessage(
+            self.objet,
+            self.message,
+            self.emailFrom,
+            client_emails
+        )
+        email.send()
+    def __str__(self):
+        return self.id

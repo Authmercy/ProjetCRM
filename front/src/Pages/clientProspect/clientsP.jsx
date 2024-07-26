@@ -28,6 +28,18 @@ const ClientPropect = ({ openSidebarToggle, OpenSidebar }) => {
           console.log(err);
         }
       };
+      const [pClients, setpClients] = useState([])
+      const [query, setQuery] = useState('');
+      useEffect(() => {
+        if (query.length > 0) {
+            fetch(`http://localhost:8000/api/pclients/search/?name=${query}`)
+                .then(response => response.json())
+                .then(data => setpClients(data))
+                .catch(error => console.error('Error fetching clients:', error));
+        } else {
+            setpClients([]);
+        }
+    }, [query]);
 
     return (
         <div className='grid-container'>
@@ -37,9 +49,42 @@ const ClientPropect = ({ openSidebarToggle, OpenSidebar }) => {
             <main className='main-container'>
 
                 <div className="contenu">
-                <Link to="/addclient"  className="btn btn-success">
-        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+                <Link to="/addclientp"  className="btn btn-success">
+        <i className="material-icons"> </i> <span>Add </span>
         </Link>
+        <div className="recherche">
+                 <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Rechercher un prospect"
+                
+            />
+                </div >
+
+<table className='table table-bordered table-striped'>
+                           
+                            <tbody>
+                                {pClients?.map(client => {
+                                    return (<tr key={client.id}>
+                                        <td >{client.nom}
+                                        </td>
+                                        <td> {client.prenom}</td>
+                                        <td>{client.email}</td>
+                                        <td>{client.telephone}</td>
+                                        <td>{client.address}</td>
+                                        
+    
+                                        <td> <button className="edite" ><Link to={`/modifclient/${client.id}`}>Modif</Link></button>
+                       <button className="delete" onClick={() => handleDelete(client.id)}>Delete</button> </td>
+
+    
+    </tr>)
+                                }
+                                )
+                                }
+                            </tbody>
+                        </table>
 
                     <div className='containerT'>
                         <h2 className='text-center'>Liste Des Prospects</h2>

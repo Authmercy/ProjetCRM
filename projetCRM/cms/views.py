@@ -15,6 +15,28 @@ from rest_framework.response import Response
 from django.views import View
 from xhtml2pdf import pisa
 from django.template.loader import render_to_string 
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
+
+
+
+
+ 
+    
+@api_view(['POST'])
+def send_email(request):
+    serializer = EmailSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        print(request.data)
+        return Response({'status': 'Email sent successfully'}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class adminView(viewsets.ModelViewSet):
     serializer_class = ServiceClientSerializer
     queryset = ServiceClient.objects.all()
@@ -163,6 +185,17 @@ class adminView(viewsets.ModelViewSet):
 class ListClientProspectView(ListAPIView):
     queryset= ClientProspect.objects.all()
     serializer_class= ClientProspectSerializer
+    
+@api_view(['GET'])
+def client_detail(request, pk):
+    try:
+        client = ClientProspect.objects.get(pk=pk)
+    except ClientProspect.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ClientSerializer(client)
+    return Response(serializer.data)
+    
 @api_view(['GET'])
 def search_pclient(request):
         query = request.GET.get('name', '')
@@ -281,6 +314,10 @@ class ListVenteView(ListAPIView):
         if pisa_status.err:
             return HttpResponse('Erreur <pre>' + html_string + '</pre>')
         return response
+
+
+       
+    
 @api_view(['GET'])
 def search_vente(request):
         query = request.GET.get('name', '')

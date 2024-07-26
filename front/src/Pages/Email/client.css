@@ -1,5 +1,3 @@
-/* service.css */
-
 /* Grid container with header and sidebar */
 .grid-container {
     display: grid;
@@ -38,6 +36,7 @@ header {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 /* Title styling */
@@ -47,15 +46,17 @@ h2.text-center {
     color: #34495e;
 }
 
-/* Add button styling */
-button.contenu {
-    display: inline-block;
+/* Search and Add button styling */
+.recherche-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-button.contenu .btn-success {
-    background-color: #267d52;
-    color: rgb(255, 255, 255);
+.search-panel .btn-success {
+    background-color: #27ae60;
+    color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -65,8 +66,22 @@ button.contenu .btn-success {
     align-items: center;
 }
 
-button.contenu .btn-success i {
+.search-panel .btn-success i {
     margin-right: 5px;
+}
+
+.search-panel .recherche input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 300px;
+    transition: box-shadow 0.3s ease;
+}
+
+.search-panel .recherche input:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /* Table styling */
@@ -92,6 +107,8 @@ table tbody tr:nth-child(even) {
 table tbody td {
     padding: 10px;
     border: 1px solid #ddd;
+    color: #34495e; /* Dark blue text */
+    text-align: left;
 }
 
 table tbody tr:hover {
@@ -101,7 +118,7 @@ table tbody tr:hover {
 /* Action buttons styling */
 button.delete,
 button.edite {
-    background-color: #d12626;
+    background-color: #3ca3e7;
     color: white;
     border: none;
     border-radius: 5px;
@@ -111,7 +128,7 @@ button.edite {
 }
 
 button.edite {
-    background-color: #372fd4;
+    background-color: #db3434;
 }
 
 button.delete a,
@@ -123,22 +140,27 @@ button.edite a {
 /* Button hover effects */
 button.delete:hover,
 button.edite:hover,
-button.contenu .btn-success:hover {
+.search-panel .btn-success:hover {
     opacity: 0.8;
 }
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #fff;
-    background-color: #267938;
-    border: none;
+
+/* Styling for the search container */
+.recherche {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.recherche input {
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+    font-size: 16px;
+    width: 300px;
+    transition: box-shadow 0.3s ease;
+}
+
+.recherche input:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

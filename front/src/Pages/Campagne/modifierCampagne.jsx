@@ -43,6 +43,7 @@ const UpdateCampagne = ({ openSidebarToggle, OpenSidebar }) => {
             alert("Campagne modifié avec success");
         } catch (error) {
             console.error(error);
+            console.error('Error response data:', error.response?.data);
         }
     };
 
@@ -68,6 +69,7 @@ const UpdateCampagne = ({ openSidebarToggle, OpenSidebar }) => {
                                         <span className='title'>Modifier une Campagne</span>
                                     </div>
 
+                                  
                                     <div className='fields'>
                                         <div className='input-field'>
                                             <label htmlFor='nomclient'>Nom de la Campagne</label>
@@ -79,7 +81,7 @@ const UpdateCampagne = ({ openSidebarToggle, OpenSidebar }) => {
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='nomclient'>Date de début</label>
-                                            <input type='date' id='nom' value={date_debut} onChange={(event) => setDate_debut(event.target.value)} required />
+                                            <input type='date' id='nom' value={date_debut} onChange={(event) => setDate_debut(event.target.value)}  />
                                         </div>
                                         <div className='input-field'>
                                             <label htmlFor='nomclient'>Date de fin</label>

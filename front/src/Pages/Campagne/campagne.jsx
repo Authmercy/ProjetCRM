@@ -10,7 +10,18 @@ const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
 
 
 
-
+    const [query, setQuery] = useState('');
+    const [clients, setclients] = useState([])
+    useEffect(() => {
+        if (query.length > 0) {
+            fetch(`http://localhost:8000/api/campagne/search/?name=${query}`)
+                .then(response => response.json())
+                .then(data => setclients(data))
+                .catch(error => console.error('Error fetching clients:', error));
+        } else {
+            setclients([]);
+        }
+    }, [query]);
     const [Campagnes, setCampagnes] = useState([])
 
     useEffect(() => {
@@ -23,12 +34,12 @@ const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
     }, []);
     const handleDelete = async (id) => {
         try {
-          await axios.delete(`http://localhost:8000/api/${id}/delete_campagne_marketing/`);
-          window.location.reload()
+            await axios.delete(`http://localhost:8000/api/${id}/delete_campagne_marketing/`);
+            window.location.reload()
         } catch (err) {
-          console.log(err);
+            console.log(err);
         }
-      };
+    };
 
     return (
         <div className='grid-container'>
@@ -37,12 +48,45 @@ const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
 
             <main className='main-container'>
                 <div className="contenu">
-                <Link to="/addcampagne"  className="btn btn-success">
-        <i className="material-icons"> &#xE147;</i> <span>Add </span>
-        </Link>
+                    <Link to="/addcampagne" className="btn btn-success">
+                        <i className="material-icons"> </i> <span>Add </span>
+                    </Link>
+                    <table className='table table-bordered table-striped'>
+            
+                            <tbody>
+                                {clients?.map(item => {
+                                    return (<tr key={item.id}>
+                                        <td >{item.nomCampagne}</td>
+                                        <td> {item.objectif}</td>
+                                        <td> {item.date_debut}</td>
+                                        <td> {item.date_fin}</td>
+                                        <td>
+                                            {item.document && (
+                                                <a href={`${item.document}`} download>Telecharger</a>
+                                            )}
+                                        </td>
+                                        <td>
+                                            {item.media && (
+                                                <a href={`${item.media}`} target="_blank" rel="noopener noreferrer">Visualiser</a>
+                                            )}
+                                        </td>
+                                        <td>
+                                            {item.video && (
+                                                <a href={`${item.video}`} target="_blank" rel="noopener noreferrer">Visualiser</a>
+                                            )}
+                                        </td>
 
+                                        <td>
+                                            <button className="edite" ><Link to={`/modifcampagne/${item.id}`}>Modif</Link></button>
+                                            <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button>
+                                        </td>  </tr>)
+                                }
+                                )
+                                }
+                            </tbody>
+                        </table>
                     <div className='containerT'>
-                        <h2 className='text-center'>Liste  des Categories</h2>
+                        <h2 className='text-center'>Liste  des Campagnes</h2>
                         <table className='table table-bordered table-striped'>
                             <thead>
                                 <tr>
@@ -54,8 +98,8 @@ const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
                                     <th>Photo</th>
                                     <th>Video</th>
                                     <th>Action</th>
-                                  
-                                   
+
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,25 +110,25 @@ const Campagne = ({ openSidebarToggle, OpenSidebar }) => {
                                         <td> {item.date_debut}</td>
                                         <td> {item.date_fin}</td>
                                         <td>
-                                                {item.document && (
-                                                    <a href={`${item.document}`} download>Telecharger</a>
-                                                )}
-                                            </td>
-                                            <td>
-                                                {item.media && (
-                                                    <a href={`${item.media}`} target="_blank" rel="noopener noreferrer">Visualiser</a>
-                                                )}
-                                            </td>
-                                            <td>
-                                                {item.video && (
-                                                    <a href={`${item.video}`} target="_blank" rel="noopener noreferrer">Visualiser</a>
-                                                )}
-                                            </td>
-                                      
+                                            {item.document && (
+                                                <a href={`${item.document}`} download>Telecharger</a>
+                                            )}
+                                        </td>
                                         <td>
-                                        <button className="edite" ><Link to={`/modifcampagne/${item.id}`}>Modif</Link></button>
+                                            {item.media && (
+                                                <a href={`${item.media}`} target="_blank" rel="noopener noreferrer">Visualiser</a>
+                                            )}
+                                        </td>
+                                        <td>
+                                            {item.video && (
+                                                <a href={`${item.video}`} target="_blank" rel="noopener noreferrer">Visualiser</a>
+                                            )}
+                                        </td>
+
+                                        <td>
+                                            <button className="edite" ><Link to={`/modifcampagne/${item.id}`}>Modif</Link></button>
                                             <button className="delete" onClick={() => handleDelete(item.id)}>Delete</button>
-                                            </td>  </tr>)
+                                        </td>  </tr>)
                                 }
                                 )
                                 }

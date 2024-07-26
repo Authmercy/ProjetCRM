@@ -41,13 +41,13 @@ const ServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
                     <div className='container'>
                     <button className="contenu">
                     <Link to="/addservice"  className="btn btn-success">
-        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+        <i className="material-icons"> </i> <span>Add </span>
         </Link>
       </button>
                         <h2 className='text-center'>Liste  des Interactions</h2>
                         <table className='table table-bordered table-striped'>
                             <thead>
-                                <tr>
+                                <tr> <th>ID</th>
                                     <th>Date de demande</th>
                                     <th>Probleme signalé</th>
                                     <th>Client</th>
@@ -61,6 +61,7 @@ const ServiceClient = ({ openSidebarToggle, OpenSidebar }) => {
                             <tbody>
                                 {ServiceClients?.map(item => {
                                     return (<tr key={item.id}>
+                                         <td >{item.id}</td>
                                         <td >{item.date_demande}</td>
                                         <td> {item.problemeSignale}</td>
                                         <td> {item.client.nom}</td>

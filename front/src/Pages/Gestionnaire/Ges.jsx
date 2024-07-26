@@ -38,7 +38,7 @@ const Gestionnaires = ({ openSidebarToggle, OpenSidebar }) => {
             <main className='main-container'>
                 <div className="contenu">
                 <Link to="/addges"  className="btn btn-success">
-        <i className="material-icons"> &#xE147;</i> <span>Add </span>
+        <i className="material-icons"> </i> <span>Add </span>
         </Link>
                     <div className='containerT'>
                         <h2 className='text-center'>Liste Gestionnaires</h2>

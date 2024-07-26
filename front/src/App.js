@@ -30,7 +30,7 @@ import UpdateGestionnaire from './Pages/Gestionnaire/modifGes';
 import UpdateCampagne from './Pages/Campagne/modifierCampagne';
 import UpdateServiceClient from  './Pages/ServiceClient/modifServiceClient';
 import Search from './Pages/Home/Search';
-
+import EnvoieMaiL from './Pages/Email/Envoyer';
 
 
 
@@ -46,7 +46,7 @@ function App() {
 
     <Router>
       <Routes>
-
+      <Route path="/mail" element={<EnvoieMaiL />} />
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -64,7 +64,7 @@ function App() {
         <Route path="/addges" element={<AddGestionnaire />} />
         <Route path="/addproduit" element={<AddProduit />} />
         <Route path="/addclient" element={<AddClient />} />
-        <Route path="/addclientP" element={<AddClientPropect />} />
+        <Route path="/addclientp" element={<AddClientPropect />} />
         <Route path="/addcat" element={<AddCategory />} />
         <Route path="/addservice" element={<AddServiceClient />} />
         <Route path="/addcommande" element={<AddCommande />} />

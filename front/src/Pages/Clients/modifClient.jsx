@@ -16,6 +16,23 @@ const UpdateClient = ({ openSidebarToggle, OpenSidebar }) => {
     const location = useLocation();
     const clientid = location.pathname.split("/")[2];
 
+    useEffect(() => {
+        const fetchClientData = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/api/${clientid}/clients/`);
+                const client = response.data;
+                setNom(client.nom);
+                setPrenom(client.prenom);
+                setEmail(client.email);
+                setTelephone(client.telephone);
+                setAddress(client.address);
+            } catch (error) {
+                console.error("Error fetching client data:", error);
+            }
+        };
+
+        fetchClientData();
+    }, [clientid]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

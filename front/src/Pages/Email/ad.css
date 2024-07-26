@@ -1,0 +1,85 @@
+
+.containerD header {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+/* Submit button styling */
+.submit button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2e85cc;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit button:hover {
+    background-color: #27ae60;
+}
+/* AddClient.css */
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .title {
+    text-transform: uppercase;
+    color: #333; /* Darker text color */
+  }
+  
+  .fields {
+    display: flex;
+    flex-wrap: wrap; /* Allow fields to wrap if needed */
+  }
+  
+  .input-field {
+    width: 100%; /* Make input fields full width */
+    margin-bottom: 0.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="email"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 3px;
+    width: 100%; /* Ensure full width */
+  }
+  
+  .submit {
+    text-align: center;
+  }
+  
+  button[type="submit"] {
+    padding: 0.75rem 1rem;
+    background-color: #1d516a; /* Green button color */
+    color: #fff; /* White button text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #3e868e; /* Darker green on hover */
+  }
+  

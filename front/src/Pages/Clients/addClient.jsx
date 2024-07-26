@@ -3,7 +3,7 @@ import axios from 'axios'
 import Header from '../Home/Header'
 import Sidebar from '../Home/sidebar'
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import './ad.css'
 const AddClient = ({ openSidebarToggle, OpenSidebar }) => {
 
    
@@ -93,3 +93,4 @@ const AddClient = ({ openSidebarToggle, OpenSidebar }) => {
 }
 
 export default AddClient
+

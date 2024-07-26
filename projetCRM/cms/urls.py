@@ -17,7 +17,9 @@ urlpatterns = [
     path('<int:pk>/delete_campagne_marketing/',views.DeleteCampagneMarketingView.as_view(), name='campagne_marketing_delete'),  
     path('categoryList/',views.ListCategoryView.as_view(), name='category'),
     path('add_category/',views.CreateCategoryView.as_view(), name='create_category'),
-    
+     path('email/', send_email, name='send_email'),
+     
+    path('<int:pk>/clients/', views.client_detail, name='client_detail'),
     path('<int:pk>/update_category/',views.UpdateCategoryView.as_view(), name='category_update'),
     path('<int:pk>/delete_category/',views.DeleteCategoryView.as_view(), name='category_delete'),  
     path('clientList/',views.ListClientView.as_view(), name='client'),
