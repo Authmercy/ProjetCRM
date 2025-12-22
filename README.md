@@ -1,9 +1,9 @@
-# 📰 Content Management System (CMS)
+# 📰CRM — Customer Relationship Management
 
-Application **CMS (Content Management System)** développée avec  
+Application *CRM — Customer Relationship Management** développée avec  
 **React** pour le frontend et **Django (Python)** pour le backend.
 
-Ce projet permet de créer, gérer et publier du contenu (articles, pages, catégories)
+Ce projet permet de créer et gérer des clients
 via une interface web moderne et une API backend sécurisée.
 
 ---
