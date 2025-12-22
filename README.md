@@ -12,7 +12,7 @@ via une interface web moderne et une API backend sécurisée.
 
 - Concevoir une application web **full-stack**
 - Séparer clairement le **frontend** et le **backend**
-- Implémenter un CMS moderne et extensible
+- Implémenter un CRM moderne et extensible
 - Mettre en pratique React, Django et les API REST
 
 ---
