@@ -27,7 +27,7 @@ via une interface web moderne et une API backend sécurisée.
 - Dashboard administrateur
 - Communication avec l’API backend
 
-### ⚙️ Backend (Django)
+### ⚙️ Backend (Python Django)
 - API REST avec Django REST Framework
 - Gestion des utilisateurs et rôles (Admin / Éditeur)
 - CRUD des articles
